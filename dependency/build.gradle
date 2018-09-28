@@ -1,0 +1,31 @@
+group 'org.lxg.gradle.sample.dependency'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'application'
+
+dependencies {
+    compile 'log4j:log4j:1.2.17'
+    compile project(':helloworld')
+    testCompile 'junit:junit:4.11'
+}
+
+//jar {
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//    manifest {
+//        attributes 'Main-Class': 'org.lxg.gradle.sample.dependency.HelloWorld'
+//    }
+//}
+mainClassName = 'org.lxg.gradle.sample.dependency.HelloWorld'
+task copyLicense {
+    outputs.file new File("$buildDir/LICENSE")
+    doLast {
+        copy {
+            from "../LICENSE"
+            into "$buildDir"
+        }
+    }
+}
+
+applicationDistribution.from(copyLicense) {
+    into ""
+}
