@@ -1,4 +1,4 @@
-package org.lxg.gradle.sample;
+package org.lxg.gradle.sample.helloworld;
 
 /**
  * @author: xuegangliu

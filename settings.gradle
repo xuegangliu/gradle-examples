@@ -1,2 +1,4 @@
 rootProject.name = 'gradle-examples'
+include 'dependency'
+include 'helloworld'
 
