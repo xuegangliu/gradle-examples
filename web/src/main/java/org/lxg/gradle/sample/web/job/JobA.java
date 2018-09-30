@@ -13,6 +13,6 @@ import org.quartz.JobExecutionException;
 public class JobA implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        System.out.println("JobA-----------A");
+        System.out.println(context.getScheduler()+"JobA-----------A");
     }
 }
