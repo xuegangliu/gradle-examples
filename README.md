@@ -14,6 +14,8 @@ gradle-examples
 ├── helloworld -- 基础
     ├──src     -- 源码
     ├──build.gradle -- gradle构建配置
+├── dependency -- 依赖
+├── web -- web项目
 ├── img -- 图片
 ├ build.gradle --全局配置
 ├ settings --模块配置

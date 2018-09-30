@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--扫描包,自动注入bean-->
+    <context:component-scan base-package="org.lxg.gradle.sample.web"/>
+    <!--使用注解开发spring mvc-->
+    <mvc:annotation-driven/>
+
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--上传下载-->
+    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <!--登录拦截器  这里注意一下，如果使用这段代码请配置好登录拦截器，不要只是新建一个LogInterceptor类，要把内容写全，要么注释掉下段代码-->
+<!--    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/bootstrap/**/*"/>
+            <mvc:exclude-mapping path="/css/**/*"/>
+            <mvc:exclude-mapping path="/js/**/*"/>
+            <mvc:exclude-mapping path="/img/**/*"/>
+            <bean class="org.lxg.gradle.sample.web.interceptor.LogInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+
+    <!--过滤掉静态资源文件-->
+    <mvc:resources mapping="/css/**/*" location="static"/>
+    <mvc:resources mapping="/js/**/*" location="static"/>
+    <mvc:resources mapping="/img/**/*" location="static"/>
+</beans>
