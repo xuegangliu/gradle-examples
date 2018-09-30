@@ -1,4 +1,3 @@
-group 'org.lxg.gradle.sample.helloworld'
 version '1.0-SNAPSHOT'
 
 jar {

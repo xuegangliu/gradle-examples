@@ -4,6 +4,26 @@ subprojects {
     targetCompatibility = 1.8
     repositories {
         mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
         mavenCentral()
+        jcenter()
+//        /* 指定本地仓库地址 */
+//        maven { url "file://E:/githubrepo/releases" }
+//        /* 指定的远程仓库 */
+//        maven { url "http://mvnrepository.com/" }
+//        /*
+//         * 公司仓库，可能需要验证
+//         * 不推荐直接将用户名密码写在build.gradle中
+//         * 可以写在~/.gradle/gradle.properties中，再使用
+//         */
+//        maven {
+//            url "<you_company_resp_url>"
+//            credentials {
+//                username 'your_username'
+//                password 'your_password'
+//            }
+//        }
+//        // 支持ivy仓库
+//        ivy { url "<ivy_resp_url>" }
     }
 }
