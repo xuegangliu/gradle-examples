@@ -65,4 +65,6 @@ dependencies {
     compile group: 'org.apache.shiro', name: 'shiro-web', version: '1.3.2'
     compile group: 'org.apache.shiro', name: 'shiro-spring', version: '1.3.2'
     compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: '1.3.2'
+    //quartz
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '1.8.6'
 }

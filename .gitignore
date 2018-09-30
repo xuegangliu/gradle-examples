@@ -1,5 +1,6 @@
 .gradle
 /build/
+/**/build/
 /out/
 /**/out/
 # Ignore Gradle GUI config
