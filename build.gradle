@@ -27,3 +27,15 @@ subprojects {
 //        ivy { url "<ivy_resp_url>" }
     }
 }
+//buildscript {
+//    repositories {
+//        mavenLocal()
+//        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+//        mavenCentral()
+//        jcenter()
+//    }
+//
+//    dependencies {
+//        classpath 'org.hidetake:gradle-ssh-plugin:2.6.0'
+//    }
+//}

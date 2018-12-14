@@ -1,6 +1,7 @@
 version '1.0-SNAPSHOT'
 
 apply plugin: 'war'
+apply plugin: 'org.hidetake.ssh'
 
 repositories {
 
@@ -68,4 +69,72 @@ dependencies {
     compile group: 'org.apache.shiro', name: 'shiro-ehcache', version: '1.3.2'
     //quartz
     compile group: 'org.quartz-scheduler', name: 'quartz', version: '1.8.6'
+}
+
+buildscript{
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.hidetake:gradle-ssh-plugin:2.6.0'
+    }
+}
+
+ssh.settings {
+    knownHosts = allowAnyHosts
+}
+
+remotes {
+    deployServer {
+        host = 'xxx.xx.xx.xx'
+        user = 'user'
+        password = 'password'
+    }
+}
+
+war {
+    archiveName 'web.war'
+}
+
+task shutdownTomcat() << {
+    ssh.run {
+        session(remotes.deployServer) {
+            println 'shut down tomcat...'
+            executeScript '''#!/bin/sh
+                        cd /home/ubuntu/soft/apache-tomcat-7.0.92/bin
+                        ./shutdown.sh
+                    '''
+        }
+    }
+}
+task del(dependsOn:shutdownTomcat) << {
+    ssh.run {
+        session(remotes.deployServer) {
+            println 'start deleting...'
+            executeScript '''#!/bin/sh
+                        rm -rf /home/ubuntu/soft/apache-tomcat-7.0.92/webapps/web-1.0-SNAPSHOT
+                        rm -f /home/ubuntu/soft/apache-tomcat-7.0.92/webapps/web-1.0-SNAPSHOT.war
+                    '''
+        }
+    }
+}
+task copy(dependsOn:del) << {
+    ssh.run {
+        session(remotes.deployServer) {
+            println 'start copying war...'
+            put from: buildDir.toString() + '/libs/web-1.0-SNAPSHOT.war', into: '/home/ubuntu/soft/apache-tomcat-7.0.92/webapps/'
+        }
+    }
+}
+task deploy(dependsOn:copy) << {
+    ssh.run {
+        session(remotes.deployServer) {
+            println 'start tomcat...'
+            execute '/home/ubuntu/soft/apache-tomcat-7.0.92/bin/startup.sh'
+        }
+    }
 }

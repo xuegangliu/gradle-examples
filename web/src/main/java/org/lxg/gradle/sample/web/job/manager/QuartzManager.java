@@ -15,28 +15,28 @@ public class QuartzManager {
     private static String TRIGGER_GROUP_NAME = "EXTJWEB_TRIGGERGROUP_NAME";
 
     /**
-     * @Description: Ìí¼ÓÒ»¸ö¶¨Ê±ÈÎÎñ£¬Ê¹ÓÃÄ¬ÈÏµÄÈÎÎñ×éÃû£¬´¥·¢Æ÷Ãû£¬´¥·¢Æ÷×éÃû
+     * @Description: æ·»åŠ ä¸€ä¸ªå®šæ—¶ä»»åŠ¡ï¼Œä½¿ç”¨é»˜è®¤çš„ä»»åŠ¡ç»„åï¼Œè§¦å‘å™¨åï¼Œè§¦å‘å™¨ç»„å
      *
      * @param sched
-     *            µ÷¶ÈÆ÷
+     *            è°ƒåº¦å™¨
      *
      * @param jobName
-     *            ÈÎÎñÃû
+     *            ä»»åŠ¡å
      * @param cls
-     *            ÈÎÎñ
+     *            ä»»åŠ¡
      * @param time
-     *            Ê±¼äÉèÖÃ£¬²Î¿¼quartzËµÃ÷ÎÄµµ
+     *            æ—¶é—´è®¾ç½®ï¼Œå‚è€ƒquartzè¯´æ˜æ–‡æ¡£
      *
      * @Title: QuartzManager.java
      */
     public static void addJob(Scheduler sched, String jobName, @SuppressWarnings("rawtypes") Class cls, String time) {
         try {
-            JobDetail jobDetail = new JobDetail(jobName, JOB_GROUP_NAME, cls);// ÈÎÎñÃû£¬ÈÎÎñ×é£¬ÈÎÎñÖ´ĞĞÀà
-            // ´¥·¢Æ÷
-            CronTrigger trigger = new CronTrigger(jobName, TRIGGER_GROUP_NAME);// ´¥·¢Æ÷Ãû,´¥·¢Æ÷×é
-            trigger.setCronExpression(time);// ´¥·¢Æ÷Ê±¼äÉè¶¨
+            JobDetail jobDetail = new JobDetail(jobName, JOB_GROUP_NAME, cls);// ä»»åŠ¡åï¼Œä»»åŠ¡ç»„ï¼Œä»»åŠ¡æ‰§è¡Œç±»
+            // è§¦å‘å™¨
+            CronTrigger trigger = new CronTrigger(jobName, TRIGGER_GROUP_NAME);// è§¦å‘å™¨å,è§¦å‘å™¨ç»„
+            trigger.setCronExpression(time);// è§¦å‘å™¨æ—¶é—´è®¾å®š
             sched.scheduleJob(jobDetail, trigger);
-            // Æô¶¯
+            // å¯åŠ¨
             if (!sched.isShutdown()) {
                 sched.start();
             }
@@ -46,32 +46,32 @@ public class QuartzManager {
     }
 
     /**
-     * @Description: Ìí¼ÓÒ»¸ö¶¨Ê±ÈÎÎñ
+     * @Description: æ·»åŠ ä¸€ä¸ªå®šæ—¶ä»»åŠ¡
      *
      * @param sched
-     *            µ÷¶ÈÆ÷
+     *            è°ƒåº¦å™¨
      *
      * @param jobName
-     *            ÈÎÎñÃû
+     *            ä»»åŠ¡å
      * @param jobGroupName
-     *            ÈÎÎñ×éÃû
+     *            ä»»åŠ¡ç»„å
      * @param triggerName
-     *            ´¥·¢Æ÷Ãû
+     *            è§¦å‘å™¨å
      * @param triggerGroupName
-     *            ´¥·¢Æ÷×éÃû
+     *            è§¦å‘å™¨ç»„å
      * @param jobClass
-     *            ÈÎÎñ
+     *            ä»»åŠ¡
      * @param time
-     *            Ê±¼äÉèÖÃ£¬²Î¿¼quartzËµÃ÷ÎÄµµ
+     *            æ—¶é—´è®¾ç½®ï¼Œå‚è€ƒquartzè¯´æ˜æ–‡æ¡£
      *
      * @Title: QuartzManager.java
      */
     public static void addJob(Scheduler sched, String jobName, String jobGroupName, String triggerName, String triggerGroupName, @SuppressWarnings("rawtypes") Class jobClass, String time) {
         try {
-            JobDetail jobDetail = new JobDetail(jobName, jobGroupName, jobClass);// ÈÎÎñÃû£¬ÈÎÎñ×é£¬ÈÎÎñÖ´ĞĞÀà
-            // ´¥·¢Æ÷
-            CronTrigger trigger = new CronTrigger(triggerName, triggerGroupName);// ´¥·¢Æ÷Ãû,´¥·¢Æ÷×é
-            trigger.setCronExpression(time);// ´¥·¢Æ÷Ê±¼äÉè¶¨
+            JobDetail jobDetail = new JobDetail(jobName, jobGroupName, jobClass);// ä»»åŠ¡åï¼Œä»»åŠ¡ç»„ï¼Œä»»åŠ¡æ‰§è¡Œç±»
+            // è§¦å‘å™¨
+            CronTrigger trigger = new CronTrigger(triggerName, triggerGroupName);// è§¦å‘å™¨å,è§¦å‘å™¨ç»„
+            trigger.setCronExpression(time);// è§¦å‘å™¨æ—¶é—´è®¾å®š
             sched.scheduleJob(jobDetail, trigger);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -79,10 +79,10 @@ public class QuartzManager {
     }
 
     /**
-     * @Description: ĞŞ¸ÄÒ»¸öÈÎÎñµÄ´¥·¢Ê±¼ä(Ê¹ÓÃÄ¬ÈÏµÄÈÎÎñ×éÃû£¬´¥·¢Æ÷Ãû£¬´¥·¢Æ÷×éÃû)
+     * @Description: ä¿®æ”¹ä¸€ä¸ªä»»åŠ¡çš„è§¦å‘æ—¶é—´(ä½¿ç”¨é»˜è®¤çš„ä»»åŠ¡ç»„åï¼Œè§¦å‘å™¨åï¼Œè§¦å‘å™¨ç»„å)
      *
      * @param sched
-     *            µ÷¶ÈÆ÷
+     *            è°ƒåº¦å™¨
      * @param jobName
      * @param time
      *
@@ -108,12 +108,12 @@ public class QuartzManager {
     }
 
     /**
-     * @Description: ĞŞ¸ÄÒ»¸öÈÎÎñµÄ´¥·¢Ê±¼ä
+     * @Description: ä¿®æ”¹ä¸€ä¸ªä»»åŠ¡çš„è§¦å‘æ—¶é—´
      *
      * @param sched
-     *            µ÷¶ÈÆ÷ *
+     *            è°ƒåº¦å™¨ *
      * @param sched
-     *            µ÷¶ÈÆ÷
+     *            è°ƒåº¦å™¨
      * @param triggerName
      * @param triggerGroupName
      * @param time
@@ -129,9 +129,9 @@ public class QuartzManager {
             String oldTime = trigger.getCronExpression();
             if (!oldTime.equalsIgnoreCase(time)) {
                 CronTrigger ct = (CronTrigger) trigger;
-                // ĞŞ¸ÄÊ±¼ä
+                // ä¿®æ”¹æ—¶é—´
                 ct.setCronExpression(time);
-                // ÖØÆô´¥·¢Æ÷
+                // é‡å¯è§¦å‘å™¨
                 sched.resumeTrigger(triggerName, triggerGroupName);
             }
         } catch (Exception e) {
@@ -140,29 +140,29 @@ public class QuartzManager {
     }
 
     /**
-     * @Description: ÒÆ³ıÒ»¸öÈÎÎñ(Ê¹ÓÃÄ¬ÈÏµÄÈÎÎñ×éÃû£¬´¥·¢Æ÷Ãû£¬´¥·¢Æ÷×éÃû)
+     * @Description: ç§»é™¤ä¸€ä¸ªä»»åŠ¡(ä½¿ç”¨é»˜è®¤çš„ä»»åŠ¡ç»„åï¼Œè§¦å‘å™¨åï¼Œè§¦å‘å™¨ç»„å)
      *
      * @param sched
-     *            µ÷¶ÈÆ÷
+     *            è°ƒåº¦å™¨
      * @param jobName
      *
      * @Title: QuartzManager.java
      */
     public static void removeJob(Scheduler sched, String jobName) {
         try {
-            sched.pauseTrigger(jobName, TRIGGER_GROUP_NAME);// Í£Ö¹´¥·¢Æ÷
-            sched.unscheduleJob(jobName, TRIGGER_GROUP_NAME);// ÒÆ³ı´¥·¢Æ÷
-            sched.deleteJob(jobName, JOB_GROUP_NAME);// É¾³ıÈÎÎñ
+            sched.pauseTrigger(jobName, TRIGGER_GROUP_NAME);// åœæ­¢è§¦å‘å™¨
+            sched.unscheduleJob(jobName, TRIGGER_GROUP_NAME);// ç§»é™¤è§¦å‘å™¨
+            sched.deleteJob(jobName, JOB_GROUP_NAME);// åˆ é™¤ä»»åŠ¡
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * @Description: ÒÆ³ıÒ»¸öÈÎÎñ
+     * @Description: ç§»é™¤ä¸€ä¸ªä»»åŠ¡
      *
      * @param sched
-     *            µ÷¶ÈÆ÷
+     *            è°ƒåº¦å™¨
      * @param jobName
      * @param jobGroupName
      * @param triggerName
@@ -172,19 +172,19 @@ public class QuartzManager {
      */
     public static void removeJob(Scheduler sched, String jobName, String jobGroupName, String triggerName, String triggerGroupName) {
         try {
-            sched.pauseTrigger(triggerName, triggerGroupName);// Í£Ö¹´¥·¢Æ÷
-            sched.unscheduleJob(triggerName, triggerGroupName);// ÒÆ³ı´¥·¢Æ÷
-            sched.deleteJob(jobName, jobGroupName);// É¾³ıÈÎÎñ
+            sched.pauseTrigger(triggerName, triggerGroupName);// åœæ­¢è§¦å‘å™¨
+            sched.unscheduleJob(triggerName, triggerGroupName);// ç§»é™¤è§¦å‘å™¨
+            sched.deleteJob(jobName, jobGroupName);// åˆ é™¤ä»»åŠ¡
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * @Description:Æô¶¯ËùÓĞ¶¨Ê±ÈÎÎñ
+     * @Description:å¯åŠ¨æ‰€æœ‰å®šæ—¶ä»»åŠ¡
      *
      * @param sched
-     *            µ÷¶ÈÆ÷
+     *            è°ƒåº¦å™¨
      *
      * @Title: QuartzManager.java
      */
@@ -197,11 +197,11 @@ public class QuartzManager {
     }
 
     /**
-     * @Description:¹Ø±ÕËùÓĞ¶¨Ê±ÈÎÎñ
+     * @Description:å…³é—­æ‰€æœ‰å®šæ—¶ä»»åŠ¡
      *
      *
      * @param sched
-     *            µ÷¶ÈÆ÷
+     *            è°ƒåº¦å™¨
      *
      *
      * @Title: QuartzManager.java
