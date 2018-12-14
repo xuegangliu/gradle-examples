@@ -21,3 +21,16 @@ gradle-examples
 ├ settings --模块配置
 ├ LICENSE
 ```
+
+## docker部署
+
+修改`build.gradle`配置
+
+## docker mysql容器
+`docker pull xuegangliu/lxg-mysql57:latest`
+用户名：root
+免密：lxgmysql
+
+## 执行
+
+`gradle deploy`

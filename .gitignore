@@ -6,5 +6,5 @@
 # Ignore Gradle GUI config
 gradle-app.setting
 
-gradle
+wrapper/
 

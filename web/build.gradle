@@ -116,8 +116,8 @@ task del(dependsOn:shutdownTomcat) << {
         session(remotes.deployServer) {
             println 'start deleting...'
             executeScript '''#!/bin/sh
-                        rm -rf /home/ubuntu/soft/apache-tomcat-7.0.92/webapps/web-1.0-SNAPSHOT
-                        rm -f /home/ubuntu/soft/apache-tomcat-7.0.92/webapps/web-1.0-SNAPSHOT.war
+                        rm -rf /home/ubuntu/soft/apache-tomcat-7.0.92/webapps/web
+                        rm -f /home/ubuntu/soft/apache-tomcat-7.0.92/webapps/web.war
                     '''
         }
     }
@@ -126,7 +126,7 @@ task copy(dependsOn:del) << {
     ssh.run {
         session(remotes.deployServer) {
             println 'start copying war...'
-            put from: buildDir.toString() + '/libs/web-1.0-SNAPSHOT.war', into: '/home/ubuntu/soft/apache-tomcat-7.0.92/webapps/'
+            put from: buildDir.toString() + '/libs/web.war', into: '/home/ubuntu/soft/apache-tomcat-7.0.92/webapps/'
         }
     }
 }
